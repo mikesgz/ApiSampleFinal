@@ -1,0 +1,40 @@
+@host = https://localhost:57199
+
+### Consultar configuración
+GET {{host}}/api/granja
+Accept: application/json
+
+### Registrar producción diaria
+POST {{host}}/api/produccion?fecha=2026-12-01
+
+### Transformar 100 L en queso
+POST {{host}}/api/transformaciones
+Content-Type: application/json
+
+{ "fecha": "2026-12-01", "tipoProducto": "Queso", "litros": 100 }
+
+### Transformar 50 L en yogurt
+POST {{host}}/api/transformaciones
+Content-Type: application/json
+
+{ "fecha": "2026-12-01", "tipoProducto": "Yogurt", "litros": 50 }
+
+### Consultar inventario para el día 1
+GET {{host}}/api/inventario?fecha=2026-12-01
+
+### Venta FIFO de queso
+POST {{host}}/api/ventas
+Content-Type: application/json
+
+{ "tipoProducto": "Queso", "cantidad": 12, "fecha": "2026-12-03" }
+
+### Procesar lotes vencidos
+POST {{host}}/api/inventario/procesar-vencimientos?fecha=2026-12-17
+
+### Reportes
+GET {{host}}/api/reportes/ventas?desde=2026-12-01&hasta=2026-12-31
+GET {{host}}/api/reportes/leche-diaria?desde=2026-12-01&hasta=2026-12-31
+GET {{host}}/api/reportes/producto-diario?desde=2026-12-01&hasta=2026-12-31
+GET {{host}}/api/reportes/producto-total
+GET {{host}}/api/reportes/producto-danado?desde=2026-12-01&hasta=2026-12-31
+GET {{host}}/api/reportes/vacas?desde=2026-12-01&hasta=2026-12-31
